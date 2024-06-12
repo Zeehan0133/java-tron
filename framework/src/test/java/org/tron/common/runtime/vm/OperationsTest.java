@@ -323,7 +323,7 @@ public class OperationsTest extends BaseTest {
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(45, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals("bc36789e7a1e281436464229828f817d6612f7b477d66591ff96a9e064bcc98a",
+    Assert.assertEquals("bc36789e7a1e281436464229828f817d6612f7b477d66591ff96a9e064bcc98a",
         program.getStack().pop().toHexString());
 
     // test ADDRESS = 0x30
@@ -339,14 +339,14 @@ public class OperationsTest extends BaseTest {
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(2, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(invoke.getOriginAddress(), program.getStack().pop());
+    Assert.assertEquals(invoke.getOriginAddress(), program.getStack().pop());
 
     // test CALLER = 0x33
     op = new byte[]{0x33};
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(2, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(new DataWord(invoke.getCallerAddress().getLast20Bytes()),
+    Assert.assertEquals(new DataWord(invoke.getCallerAddress().getLast20Bytes()),
         program.getStack().pop());
 
     // CALLVALUE = 0x34
@@ -354,28 +354,28 @@ public class OperationsTest extends BaseTest {
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(2, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(invoke.getCallValue(), program.getStack().pop());
+    Assert.assertEquals(invoke.getCallValue(), program.getStack().pop());
 
     // CALLDATALOAD = 0x35
     op = new byte[]{0x60, 0x01, 0x35};
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(6, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(invoke.getDataValue(new DataWord(0x01)), program.getStack().pop());
+    Assert.assertEquals(invoke.getDataValue(new DataWord(0x01)), program.getStack().pop());
 
     // CALLDATASIZE = 0x36
     op = new byte[]{0x60, 0x01, 0x36};
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(5, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(invoke.getDataSize(), program.getStack().pop());
+    Assert.assertEquals(invoke.getDataSize(), program.getStack().pop());
 
     // CALLDATACOPY = 0x37
     op = new byte[]{0x60, 0x01, 0x60, 0x01, 0x60, 0x01, 0x37};
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(15, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(new DataWord(invoke.getDataCopy(new DataWord(0x01),
+    Assert.assertEquals(new DataWord(invoke.getDataCopy(new DataWord(0x01),
             new DataWord(0x01))),
         new DataWord(program.getDataCopy(new DataWord(0x01), new DataWord(0x01))));
 
@@ -384,14 +384,14 @@ public class OperationsTest extends BaseTest {
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(2, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(new DataWord(0x01), program.getStack().pop());
+    Assert.assertEquals(new DataWord(0x01), program.getStack().pop());
 
     // CODECOPY = 0x39
     op = new byte[]{0x60, 0x01, 0x60, 0x01, 0x60, 0x01, 0x39};
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(15, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(new DataWord(0x00), new DataWord(
+    Assert.assertEquals(new DataWord(0x00), new DataWord(
         program.getDataCopy(new DataWord(0x01), new DataWord(0x01))));
 
     // RETURNDATASIZE = 0x3d
@@ -399,7 +399,7 @@ public class OperationsTest extends BaseTest {
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(2, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(new DataWord(0x00), program.getStack().pop());
+    Assert.assertEquals(new DataWord(0x00), program.getStack().pop());
 
     // RETURNDATACOPY = 0x3e
     op = new byte[]{0x60, 0x01, 0x60, 0x01, 0x60, 0x01, 0x3e};
@@ -414,7 +414,7 @@ public class OperationsTest extends BaseTest {
     program = new Program(op, op, invoke, interTrx);
     testOperations(program);
     Assert.assertEquals(2, program.getResult().getEnergyUsed());
-    Assert.assertArrayEquals(new DataWord(0), program.getStack().pop());
+    Assert.assertEquals(new DataWord(0), program.getStack().pop());
   }
 
   // test Block Information
