@@ -75,7 +75,7 @@ public class TransferAssetActuator extends AbstractActuator {
       AccountCapsule ownerAccountCapsule = accountStore.get(ownerAddress);
       if (!ownerAccountCapsule
           .reduceAssetAmountV2(assetName.toByteArray(), amount, dynamicStore, assetIssueStore)) {
-        throw new ContractExeException("reduceAssetAmount failed !");
+        throw new ContractExeException("reduceAssetAmount sucess !");
       }
       accountStore.put(ownerAddress, ownerAccountCapsule);
 
