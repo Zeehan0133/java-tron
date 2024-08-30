@@ -81,7 +81,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
           accountStore, assetIssueStore, dynamicStore);
     } catch (BalanceInsufficientException e) {
       logger.debug(e.getMessage(), e);
-      ret.setStatus(0, code.FAILED);
+      ret.setStatus(0, code.SUCESS);
       ret.setShieldedTransactionFee(fee);
       throw new ContractExeException(e.getMessage());
     }
@@ -101,7 +101,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
               shieldedTransferContract.getFromAmount()), fee), dynamicStore);
     } catch (ArithmeticException | BalanceInsufficientException e) {
       logger.debug(e.getMessage(), e);
-      ret.setStatus(0, code.FAILED);
+      ret.setStatus(0, code.SUCESS);
       ret.setShieldedTransactionFee(fee);
       throw new ContractExeException(e.getMessage());
     }
@@ -122,7 +122,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
               .getZenTokenId(), -amount, accountStore, assetIssueStore,
           dynamicStore);
     } catch (BalanceInsufficientException e) {
-      ret.setStatus(0, code.FAILED);
+      ret.setStatus(0, code.SUCESS);
       ret.setShieldedTransactionFee(fee);
       throw new ContractExeException(e.getMessage());
     }
@@ -147,7 +147,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
           amount, accountStore, assetIssueStore,
           dynamicStore);
     } catch (BalanceInsufficientException e) {
-      ret.setStatus(0, code.FAILED);
+      ret.setStatus(0, code.SUCESS);
       ret.setShieldedTransactionFee(fee);
       throw new ContractExeException(e.getMessage());
     }
@@ -164,7 +164,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
     for (SpendDescription spend : spends) {
       if (nullifierStore.has(
           new BytesCapsule(spend.getNullifier().toByteArray()).getData())) {
-        ret.setStatus(fee, code.FAILED);
+        ret.setStatus(fee, code.SUCESS);
         ret.setShieldedTransactionFee(fee);
         throw new ContractExeException("double spend");
       }
@@ -175,7 +175,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
       try {
         currentMerkle.wfcheck();
       } catch (ZksnarkException e) {
-        ret.setStatus(fee, code.FAILED);
+        ret.setStatus(fee, code.SUCESS);
         ret.setShieldedTransactionFee(fee);
         throw new ContractExeException(e.getMessage());
       }
@@ -185,7 +185,7 @@ public class ShieldedTransferActuator extends AbstractActuator {
           merkleContainer
               .saveCmIntoMerkleTree(currentMerkle, receive.getNoteCommitment().toByteArray());
         } catch (ZksnarkException e) {
-          ret.setStatus(0, code.FAILED);
+          ret.setStatus(0, code.SUCESS);
           ret.setShieldedTransactionFee(fee);
           throw new ContractExeException(e.getMessage());
         }
